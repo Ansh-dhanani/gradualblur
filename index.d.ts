@@ -3,7 +3,7 @@ import React from 'react';
 type Position = 'top' | 'bottom' | 'left' | 'right';
 type AnimationType = 'scroll' | 'hover' | 'fade' | false;
 type CurveType = 'linear' | 'bezier' | 'ease-in-out';
-type PresetType = 'hero' | 'navigation' | 'modal' | 'card';
+type PresetType = 'top' | 'bottom';
 
 interface GradualBlurProps {
   // Basic options

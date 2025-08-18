@@ -45,7 +45,7 @@ program
   .option('--desktop-height <height>', 'Height on desktop devices')
   
   // Advanced features
-  .option('--preset <name>', 'Use preset configuration (hero|navigation|modal|card)')
+  .option('--preset <name>', 'Use preset configuration (top|bottom)')
   .option('--zones <positions>', 'Multiple blur zones (comma-separated)')
   .option('--gpu-optimized', 'Add GPU optimization hints', false)
   .option('--reduced-motion', 'Respect prefers-reduced-motion', false)
