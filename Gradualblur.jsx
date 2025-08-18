@@ -4,8 +4,8 @@ import * as math from 'mathjs';
 // Preset configurations
 const PRESETS = {
   hero: { position: 'bottom', strength: 2.5, height: '8rem', divCount: 6, animated: 'fade' },
-  navigation: { position: 'top', strength: 1.5, height: '4rem', divCount: 4, tint: 'rgba(255,255,255,0.1)' },
-  modal: { position: 'bottom', strength: 3, height: '100vh', width: '100vw', tint: 'rgba(0,0,0,0.2)' },
+  navigation: { position: 'top', strength: 1.5, height: '4rem', divCount: 4 },
+  modal: { position: 'bottom', strength: 3, height: '100vh', width: '100vw' },
   card: { position: 'bottom', strength: 1.8, height: '3rem', divCount: 4, curve: 'bezier' }
 };
 
@@ -25,7 +25,6 @@ const GradualBlur = ({
   easing = 'ease-out',
   
   // Styling options
-  tint,
   opacity = 1,
   curve = 'linear',
   
@@ -39,6 +38,7 @@ const GradualBlur = ({
   preset,
   gpuOptimized = false,
   hoverIntensity,
+  absolute = true, // New option for positioning
   
   // Event handlers
   onAnimationComplete,
@@ -64,7 +64,7 @@ const GradualBlur = ({
     animated: presetConfig.animated || animated,
     duration: presetConfig.duration || duration,
     easing: presetConfig.easing || easing,
-    tint: presetConfig.tint || tint,
+
     opacity: presetConfig.opacity !== undefined ? presetConfig.opacity : opacity,
     curve: presetConfig.curve || curve,
     hoverIntensity: presetConfig.hoverIntensity || hoverIntensity
@@ -181,14 +181,16 @@ const GradualBlur = ({
   const containerStyle = {
     height: responsive ? getResponsiveHeight() : finalConfig.height,
     width: finalConfig.width,
-    position: 'fixed',
-    [finalConfig.position]: 0,
-    [finalConfig.position === 'left' || finalConfig.position === 'right' ? 'top' : 'left']: 0,
-    zIndex: finalConfig.zIndex,
+    position: absolute ? 'fixed' : 'relative',
+    ...(absolute && {
+      [finalConfig.position]: 0,
+      [finalConfig.position === 'left' || finalConfig.position === 'right' ? 'top' : 'left']: 0,
+      zIndex: finalConfig.zIndex
+    }),
     pointerEvents: finalConfig.hoverIntensity ? 'auto' : 'none',
     opacity: isVisible ? 1 : 0,
     transition: finalConfig.animated ? `opacity ${finalConfig.duration} ${finalConfig.easing}` : undefined,
-    background: finalConfig.tint || undefined,
+
     willChange: gpuOptimized ? 'transform, opacity' : undefined,
     transform: gpuOptimized ? 'translateZ(0)' : undefined,
     ...style

@@ -34,8 +34,7 @@ program
   .option('--duration <time>', 'Animation duration', '0.3s')
   .option('--easing <function>', 'Animation easing function', 'ease-out')
   
-  // Color and styling
-  .option('--tint <color>', 'Add color tint overlay')
+  // Styling
   .option('--opacity <number>', 'Blur layer opacity', '1')
   .option('--curve <type>', 'Blur progression curve (linear|bezier|ease-in-out)', 'linear')
   
@@ -51,6 +50,7 @@ program
   .option('--gpu-optimized', 'Add GPU optimization hints', false)
   .option('--reduced-motion', 'Respect prefers-reduced-motion', false)
   .option('--hover-intensity <number>', 'Blur intensity on hover', '1.5')
+  .option('--relative', 'Use relative positioning instead of fixed', false)
   
   .action((options) => {
     const config = {
@@ -68,7 +68,6 @@ program
       easing: options.easing,
       
       // Styling
-      tint: options.tint,
       opacity: parseFloat(options.opacity),
       curve: options.curve,
       
@@ -83,7 +82,8 @@ program
       zones: options.zones ? options.zones.split(',') : null,
       gpuOptimized: options.gpuOptimized,
       reducedMotion: options.reducedMotion,
-      hoverIntensity: parseFloat(options.hoverIntensity)
+      hoverIntensity: parseFloat(options.hoverIntensity),
+      absolute: !options.relative
     };
 
     const output = options.html ? generateBlurHTML(config) : generateBlurCSS(config);

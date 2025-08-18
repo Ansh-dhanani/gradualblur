@@ -22,7 +22,6 @@ class GradualBlur {
       animated: false,
       duration: '0.3s',
       easing: 'ease-out',
-      tint: null,
       opacity: 1,
       curve: 'linear',
       preset: null,
@@ -32,14 +31,15 @@ class GradualBlur {
       mobileHeight: null,
       tabletHeight: null,
       desktopHeight: null,
-      reducedMotion: false
+      reducedMotion: false,
+      absolute: true
     }
 
     // Presets
     this.presets = {
       hero: { position: 'bottom', strength: 2.5, height: '8rem', divCount: 6, animated: 'fade' },
-      navigation: { position: 'top', strength: 1.5, height: '4rem', divCount: 4, tint: 'rgba(255,255,255,0.1)' },
-      modal: { position: 'bottom', strength: 3, height: '100vh', width: '100vw', tint: 'rgba(0,0,0,0.2)' },
+      navigation: { position: 'top', strength: 1.5, height: '4rem', divCount: 4 },
+      modal: { position: 'bottom', strength: 3, height: '100vh', width: '100vw' },
       card: { position: 'bottom', strength: 1.8, height: '3rem', divCount: 4, curve: 'bezier' }
     }
 
@@ -87,16 +87,19 @@ class GradualBlur {
     const containerStyles = {
       height: this.getResponsiveHeight(),
       width: this.config.width,
-      position: 'fixed',
-      [this.config.position]: '0',
-      [this.config.position === 'left' || this.config.position === 'right' ? 'top' : 'left']: '0',
-      zIndex: this.config.zIndex,
+      position: this.config.absolute ? 'fixed' : 'relative',
       pointerEvents: this.config.hoverIntensity ? 'auto' : 'none',
       opacity: this.isVisible ? 1 : 0,
       transition: this.config.animated ? `opacity ${this.config.duration} ${this.config.easing}` : '',
-      background: this.config.tint || '',
+
       willChange: this.config.gpuOptimized ? 'transform, opacity' : '',
       transform: this.config.gpuOptimized ? 'translateZ(0)' : ''
+    }
+
+    if (this.config.absolute) {
+      containerStyles[this.config.position] = '0'
+      containerStyles[this.config.position === 'left' || this.config.position === 'right' ? 'top' : 'left'] = '0'
+      containerStyles.zIndex = this.config.zIndex
     }
 
     Object.assign(this.element.style, containerStyles)

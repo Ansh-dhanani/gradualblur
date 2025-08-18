@@ -12,12 +12,12 @@
   export let animated = false
   export let duration = '0.3s'
   export let easing = 'ease-out'
-  export let tint = null
   export let opacity = 1
   export let curve = 'linear'
   export let preset = null
   export let gpuOptimized = false
   export let hoverIntensity = null
+  export let absolute = true
   export let className = ''
 
   // Events
@@ -26,8 +26,8 @@
 
   const PRESETS = {
     hero: { position: 'bottom', strength: 2.5, height: '8rem', divCount: 6, animated: 'fade' },
-    navigation: { position: 'top', strength: 1.5, height: '4rem', divCount: 4, tint: 'rgba(255,255,255,0.1)' },
-    modal: { position: 'bottom', strength: 3, height: '100vh', width: '100vw', tint: 'rgba(0,0,0,0.2)' },
+    navigation: { position: 'top', strength: 1.5, height: '4rem', divCount: 4 },
+    modal: { position: 'bottom', strength: 3, height: '100vh', width: '100vw' },
     card: { position: 'bottom', strength: 1.8, height: '3rem', divCount: 4, curve: 'bezier' }
   }
 
@@ -50,11 +50,12 @@
     animated: presetConfig.animated || animated,
     duration: presetConfig.duration || duration,
     easing: presetConfig.easing || easing,
-    tint: presetConfig.tint || tint,
+
     opacity: presetConfig.opacity !== undefined ? presetConfig.opacity : opacity,
     curve: presetConfig.curve || curve,
     gpuOptimized: presetConfig.gpuOptimized || gpuOptimized,
-    hoverIntensity: presetConfig.hoverIntensity || hoverIntensity
+    hoverIntensity: presetConfig.hoverIntensity || hoverIntensity,
+    absolute: presetConfig.absolute !== undefined ? presetConfig.absolute : absolute
   }
 
   function getBlurProgression(i, divCount, curve, exponential, strength) {
@@ -126,14 +127,14 @@
   $: containerStyle = [
     `height: ${finalConfig.height}`,
     `width: ${finalConfig.width}`,
-    'position: fixed',
-    `${finalConfig.position}: 0`,
-    `${finalConfig.position === 'left' || finalConfig.position === 'right' ? 'top' : 'left'}: 0`,
-    `z-index: ${finalConfig.zIndex}`,
+    `position: ${finalConfig.absolute ? 'fixed' : 'relative'}`,
+    finalConfig.absolute ? `${finalConfig.position}: 0` : '',
+    finalConfig.absolute ? `${finalConfig.position === 'left' || finalConfig.position === 'right' ? 'top' : 'left'}: 0` : '',
+    finalConfig.absolute ? `z-index: ${finalConfig.zIndex}` : '',
     `pointer-events: ${finalConfig.hoverIntensity ? 'auto' : 'none'}`,
     `opacity: ${isVisible ? 1 : 0}`,
     finalConfig.animated ? `transition: opacity ${finalConfig.duration} ${finalConfig.easing}` : '',
-    finalConfig.tint ? `background: ${finalConfig.tint}` : '',
+
     finalConfig.gpuOptimized ? 'will-change: transform, opacity; transform: translateZ(0)' : ''
   ].filter(Boolean).join('; ')
 

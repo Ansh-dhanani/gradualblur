@@ -21,7 +21,6 @@ interface GradualBlurProps {
   easing?: string;
   
   // Styling options
-  tint?: string;
   opacity?: number;
   curve?: CurveType;
   
@@ -35,6 +34,7 @@ interface GradualBlurProps {
   preset?: PresetType;
   gpuOptimized?: boolean;
   hoverIntensity?: number;
+  absolute?: boolean;
   
   // Event handlers
   onAnimationComplete?: () => void;
@@ -54,7 +54,6 @@ interface CLIConfig {
   animated?: AnimationType;
   duration?: string;
   easing?: string;
-  tint?: string;
   opacity?: number;
   curve?: CurveType;
   responsive?: boolean;
@@ -66,6 +65,7 @@ interface CLIConfig {
   gpuOptimized?: boolean;
   reducedMotion?: boolean;
   hoverIntensity?: number;
+  absolute?: boolean;
 }
 
 // Vanilla JS Class Interface

@@ -21,8 +21,8 @@ import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 
 const PRESETS = {
   hero: { position: 'bottom', strength: 2.5, height: '8rem', divCount: 6, animated: 'fade' },
-  navigation: { position: 'top', strength: 1.5, height: '4rem', divCount: 4, tint: 'rgba(255,255,255,0.1)' },
-  modal: { position: 'bottom', strength: 3, height: '100vh', width: '100vw', tint: 'rgba(0,0,0,0.2)' },
+  navigation: { position: 'top', strength: 1.5, height: '4rem', divCount: 4 },
+  modal: { position: 'bottom', strength: 3, height: '100vh', width: '100vw' },
   card: { position: 'bottom', strength: 1.8, height: '3rem', divCount: 4, curve: 'bezier' }
 }
 
@@ -39,12 +39,12 @@ export default {
     animated: { type: [String, Boolean], default: false },
     duration: { type: String, default: '0.3s' },
     easing: { type: String, default: 'ease-out' },
-    tint: { type: String, default: null },
     opacity: { type: Number, default: 1 },
     curve: { type: String, default: 'linear' },
     preset: { type: String, default: null },
     gpuOptimized: { type: Boolean, default: false },
     hoverIntensity: { type: Number, default: null },
+    absolute: { type: Boolean, default: true },
     className: { type: String, default: '' }
   },
   emits: ['animationComplete'],
@@ -67,11 +67,12 @@ export default {
         animated: presetConfig.animated || props.animated,
         duration: presetConfig.duration || props.duration,
         easing: presetConfig.easing || props.easing,
-        tint: presetConfig.tint || props.tint,
+
         opacity: presetConfig.opacity !== undefined ? presetConfig.opacity : props.opacity,
         curve: presetConfig.curve || props.curve,
         gpuOptimized: presetConfig.gpuOptimized || props.gpuOptimized,
-        hoverIntensity: presetConfig.hoverIntensity || props.hoverIntensity
+        hoverIntensity: presetConfig.hoverIntensity || props.hoverIntensity,
+        absolute: presetConfig.absolute !== undefined ? presetConfig.absolute : props.absolute
       }
     })
 
@@ -152,21 +153,22 @@ export default {
       const style = {
         height: finalConfig.value.height,
         width: finalConfig.value.width,
-        position: 'fixed',
-        [finalConfig.value.position]: '0',
-        [finalConfig.value.position === 'left' || finalConfig.value.position === 'right' ? 'top' : 'left']: '0',
-        zIndex: finalConfig.value.zIndex,
+        position: finalConfig.value.absolute ? 'fixed' : 'relative',
         pointerEvents: finalConfig.value.hoverIntensity ? 'auto' : 'none',
         opacity: isVisible.value ? 1 : 0
+      }
+      
+      if (finalConfig.value.absolute) {
+        style[finalConfig.value.position] = '0'
+        style[finalConfig.value.position === 'left' || finalConfig.value.position === 'right' ? 'top' : 'left'] = '0'
+        style.zIndex = finalConfig.value.zIndex
       }
       
       if (finalConfig.value.animated) {
         style.transition = `opacity ${finalConfig.value.duration} ${finalConfig.value.easing}`
       }
       
-      if (finalConfig.value.tint) {
-        style.background = finalConfig.value.tint
-      }
+
       
       if (finalConfig.value.gpuOptimized) {
         style.willChange = 'transform, opacity'
