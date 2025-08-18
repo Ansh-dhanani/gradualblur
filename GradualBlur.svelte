@@ -37,9 +37,25 @@
   let observer
 
   // Apply preset configuration
-  $: finalConfig = preset && PRESETS[preset] ? 
-    { ...PRESETS[preset], position, strength, height, width, divCount, exponential, zIndex, animated, duration, easing, tint, opacity, curve, gpuOptimized, hoverIntensity } : 
-    { position, strength, height, width, divCount, exponential, zIndex, animated, duration, easing, tint, opacity, curve, gpuOptimized, hoverIntensity }
+  $: presetConfig = preset && PRESETS[preset] ? PRESETS[preset] : {}
+  
+  $: finalConfig = {
+    position: presetConfig.position || position,
+    strength: presetConfig.strength || strength,
+    height: presetConfig.height || height,
+    width: presetConfig.width || width,
+    divCount: presetConfig.divCount || divCount,
+    exponential: presetConfig.exponential !== undefined ? presetConfig.exponential : exponential,
+    zIndex: presetConfig.zIndex || zIndex,
+    animated: presetConfig.animated || animated,
+    duration: presetConfig.duration || duration,
+    easing: presetConfig.easing || easing,
+    tint: presetConfig.tint || tint,
+    opacity: presetConfig.opacity !== undefined ? presetConfig.opacity : opacity,
+    curve: presetConfig.curve || curve,
+    gpuOptimized: presetConfig.gpuOptimized || gpuOptimized,
+    hoverIntensity: presetConfig.hoverIntensity || hoverIntensity
+  }
 
   function getBlurProgression(i, divCount, curve, exponential, strength) {
     let progress = i / divCount
@@ -107,7 +123,19 @@
     return layers
   }
 
-  $: containerStyle = `height: ${finalConfig.height}; width: ${finalConfig.width}; position: fixed; ${finalConfig.position}: 0; ${finalConfig.position === 'left' || finalConfig.position === 'right' ? 'top' : 'left'}: 0; z-index: ${finalConfig.zIndex}; pointer-events: ${finalConfig.hoverIntensity ? 'auto' : 'none'}; opacity: ${isVisible ? 1 : 0}; ${finalConfig.animated ? `transition: opacity ${finalConfig.duration} ${finalConfig.easing};` : ''} ${finalConfig.tint ? `background: ${finalConfig.tint};` : ''} ${finalConfig.gpuOptimized ? 'will-change: transform, opacity; transform: translateZ(0);' : ''}`
+  $: containerStyle = [
+    `height: ${finalConfig.height}`,
+    `width: ${finalConfig.width}`,
+    'position: fixed',
+    `${finalConfig.position}: 0`,
+    `${finalConfig.position === 'left' || finalConfig.position === 'right' ? 'top' : 'left'}: 0`,
+    `z-index: ${finalConfig.zIndex}`,
+    `pointer-events: ${finalConfig.hoverIntensity ? 'auto' : 'none'}`,
+    `opacity: ${isVisible ? 1 : 0}`,
+    finalConfig.animated ? `transition: opacity ${finalConfig.duration} ${finalConfig.easing}` : '',
+    finalConfig.tint ? `background: ${finalConfig.tint}` : '',
+    finalConfig.gpuOptimized ? 'will-change: transform, opacity; transform: translateZ(0)' : ''
+  ].filter(Boolean).join('; ')
 
   function handleMouseEnter() {
     if (finalConfig.hoverIntensity) {

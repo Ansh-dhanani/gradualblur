@@ -55,8 +55,24 @@ export default {
     let observer = null
 
     const finalConfig = computed(() => {
-      const preset = props.preset && PRESETS[props.preset] ? PRESETS[props.preset] : {}
-      return { ...preset, ...props }
+      const presetConfig = props.preset && PRESETS[props.preset] ? PRESETS[props.preset] : {}
+      return {
+        position: presetConfig.position || props.position,
+        strength: presetConfig.strength || props.strength,
+        height: presetConfig.height || props.height,
+        width: presetConfig.width || props.width,
+        divCount: presetConfig.divCount || props.divCount,
+        exponential: presetConfig.exponential !== undefined ? presetConfig.exponential : props.exponential,
+        zIndex: presetConfig.zIndex || props.zIndex,
+        animated: presetConfig.animated || props.animated,
+        duration: presetConfig.duration || props.duration,
+        easing: presetConfig.easing || props.easing,
+        tint: presetConfig.tint || props.tint,
+        opacity: presetConfig.opacity !== undefined ? presetConfig.opacity : props.opacity,
+        curve: presetConfig.curve || props.curve,
+        gpuOptimized: presetConfig.gpuOptimized || props.gpuOptimized,
+        hoverIntensity: presetConfig.hoverIntensity || props.hoverIntensity
+      }
     })
 
     const getBlurProgression = (i, divCount, curve, exponential, strength) => {
@@ -132,20 +148,33 @@ export default {
       return layers
     })
 
-    const containerStyle = computed(() => ({
-      height: finalConfig.value.height,
-      width: finalConfig.value.width,
-      position: 'fixed',
-      [finalConfig.value.position]: 0,
-      [finalConfig.value.position === 'left' || finalConfig.value.position === 'right' ? 'top' : 'left']: 0,
-      zIndex: finalConfig.value.zIndex,
-      pointerEvents: finalConfig.value.hoverIntensity ? 'auto' : 'none',
-      opacity: isVisible.value ? 1 : 0,
-      transition: finalConfig.value.animated ? `opacity ${finalConfig.value.duration} ${finalConfig.value.easing}` : undefined,
-      background: finalConfig.value.tint || undefined,
-      willChange: finalConfig.value.gpuOptimized ? 'transform, opacity' : undefined,
-      transform: finalConfig.value.gpuOptimized ? 'translateZ(0)' : undefined
-    }))
+    const containerStyle = computed(() => {
+      const style = {
+        height: finalConfig.value.height,
+        width: finalConfig.value.width,
+        position: 'fixed',
+        [finalConfig.value.position]: '0',
+        [finalConfig.value.position === 'left' || finalConfig.value.position === 'right' ? 'top' : 'left']: '0',
+        zIndex: finalConfig.value.zIndex,
+        pointerEvents: finalConfig.value.hoverIntensity ? 'auto' : 'none',
+        opacity: isVisible.value ? 1 : 0
+      }
+      
+      if (finalConfig.value.animated) {
+        style.transition = `opacity ${finalConfig.value.duration} ${finalConfig.value.easing}`
+      }
+      
+      if (finalConfig.value.tint) {
+        style.background = finalConfig.value.tint
+      }
+      
+      if (finalConfig.value.gpuOptimized) {
+        style.willChange = 'transform, opacity'
+        style.transform = 'translateZ(0)'
+      }
+      
+      return style
+    })
 
     const innerStyle = computed(() => ({
       position: 'relative',
