@@ -1,7 +1,7 @@
 {
   "name": "gradualblur",
-  "version": "1.0.1",
-  "description": "CLI tool to generate CSS for gradual blur effects",
+  "version": "2.0.0",
+  "description": "Advanced gradual blur effects with animations, presets, and multi-framework support",
   "main": "index.js",
   "types": "index.d.ts",
   "bin": {
@@ -15,7 +15,13 @@
     "blur",
     "gradient",
     "cli",
-    "backdrop-filter"
+    "backdrop-filter",
+    "react",
+    "vue",
+    "svelte",
+    "animation",
+    "responsive",
+    "presets"
   ],
   "author": "ansh dhanani <dhananiansh01@gmial.com>",
   "license": "MIT",
@@ -42,6 +48,9 @@
     "index.js",
     "index.d.ts",
     "Gradualblur.jsx",
+    "GradualBlur.vue",
+    "GradualBlur.svelte",
+    "gradual-blur.js",
     "README.md"
   ]
 }

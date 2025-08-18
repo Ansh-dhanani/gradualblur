@@ -1,117 +1,48 @@
-# GradualBlur
+# GradualBlur 2.0
 
-🌊 Generate beautiful gradual blur effects for your web projects. Creates smooth backdrop-filter blur transitions that fade from transparent to blurred.
+🌊 **Advanced gradual blur effects** with animations, presets, responsive design, and multi-framework support. Creates smooth backdrop-filter blur transitions with professional-grade features.
 
-## Installation
+## ✨ Features
+
+- 🎨 **Multiple Frameworks**: React, Vue, Svelte, Vanilla JS
+- 🎬 **Animations**: Scroll-triggered, hover effects, fade-in
+- 📱 **Responsive**: Mobile-first breakpoints
+- 🎯 **Presets**: Hero, navigation, modal, card styles
+- 🎨 **Color Tinting**: Add color overlays
+- 📐 **Advanced Curves**: Linear, bezier, ease-in-out progressions
+- ⚡ **GPU Optimized**: Hardware acceleration support
+- ♿ **Accessibility**: Respects `prefers-reduced-motion`
+- 🎛️ **Multi-directional**: Top, bottom, left, right positioning
+
+## 📦 Installation
 
 ```bash
-# Install globally for CLI usage
+# CLI tool (global)
 npm install -g gradualblur
 
-# Or install locally for React projects
+# Library (local)
 npm install gradualblur
 ```
 
-## CLI Usage
+## 🚀 Quick Start
 
-### Basic Command
-```bash
-gradual-blur
-```
-
-This generates CSS for a gradual blur effect at the bottom of the screen.
-
-### Options
-
-| Option | Description | Default |
-|--------|-------------|----------|
-| `-p, --position <position>` | Position (`top` or `bottom`) | `bottom` |
-| `-s, --strength <number>` | Blur strength multiplier | `2` |
-| `-h, --height <height>` | Height of blur area | `7rem` |
-| `-w, --width <width>` | Width of blur area | `100%` |
-| `-d, --divs <number>` | Number of blur layers | `5` |
-| `-z, --zindex <number>` | CSS z-index value | `1000` |
-| `-e, --exponential` | Use exponential blur progression | `false` |
-| `-o, --output <file>` | Save CSS to file | stdout |
-| `--html` | Generate HTML structure | `false` |
-
-### Examples
+### CLI Usage
 
 ```bash
-# Basic bottom blur
+# Basic blur
 gradual-blur
 
-# Top blur with custom strength
-gradual-blur --position top --strength 3
+# Hero section preset
+gradual-blur --preset hero
 
-# Save to file with exponential progression
-gradual-blur --exponential --output blur.css
+# Animated scroll trigger
+gradual-blur --animated scroll --tint "rgba(0,0,0,0.2)"
 
-# Custom dimensions and z-index
-gradual-blur --height 10rem --width 50% --zindex 999
-
-# Get HTML structure
-gradual-blur --html
+# Responsive with multiple zones
+gradual-blur --responsive --zones top,bottom --mobile-height 3rem
 ```
 
-## How It Works
-
-The tool generates CSS using `backdrop-filter: blur()` with multiple layers and mask gradients to create a smooth transition from no blur to full blur.
-
-### Generated CSS Structure
-
-```css
-.gradual-blur {
-  /* Fixed positioned container */
-  position: fixed;
-  height: 7rem;
-  width: 100%;
-  bottom: 0; /* or top: 0 */
-  z-index: 1000;
-  pointer-events: none;
-}
-
-.gradual-blur-layer-1,
-.gradual-blur-layer-2,
-/* ... more layers */ {
-  position: absolute;
-  backdrop-filter: blur(0.125rem); /* increasing blur */
-  mask-image: linear-gradient(/* smooth transitions */);
-}
-```
-
-### HTML Usage
-
-1. Generate the CSS:
-```bash
-gradual-blur --output blur.css
-```
-
-2. Include in your HTML:
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <link rel="stylesheet" href="blur.css">
-</head>
-<body>
-  <!-- Your content -->
-  
-  <!-- Add blur overlay -->
-  <div class="gradual-blur">
-    <div class="gradual-blur-inner">
-      <div class="gradual-blur-layer-1"></div>
-      <div class="gradual-blur-layer-2"></div>
-      <div class="gradual-blur-layer-3"></div>
-      <div class="gradual-blur-layer-4"></div>
-      <div class="gradual-blur-layer-5"></div>
-    </div>
-  </div>
-</body>
-</html>
-```
-
-## React Component
+### React Component
 
 ```jsx
 import GradualBlur from 'gradualblur';
@@ -119,38 +50,311 @@ import GradualBlur from 'gradualblur';
 function App() {
   return (
     <div>
-      {/* Your content */}
-      
-      {/* Default bottom blur */}
-      <GradualBlur />
-      
-      {/* Custom top blur */}
+      {/* Hero preset with animation */}
       <GradualBlur 
-        position="top" 
-        strength={3} 
-        height="10rem" 
+        preset="hero"
+        animated="fade"
+        onAnimationComplete={() => console.log('Ready!')}
+      />
+      
+      {/* Custom responsive blur */}
+      <GradualBlur 
+        position="top"
+        strength={2.5}
+        tint="rgba(255,255,255,0.1)"
+        responsive
+        mobileHeight="4rem"
+        desktopHeight="8rem"
+        hoverIntensity={1.5}
       />
     </div>
   );
 }
 ```
 
-## Use Cases
+### Vue Component
 
-- **Navigation overlays** - Blur content behind floating navigation
-- **Modal backgrounds** - Create depth with blurred backgrounds
-- **Hero sections** - Fade content into blurred edges
-- **Scroll effects** - Blur content as it approaches screen edges
-- **Image overlays** - Add text readability over images
+```vue
+<template>
+  <div>
+    <GradualBlur 
+      preset="navigation"
+      :animated="'scroll'"
+      @animation-complete="onReady"
+    />
+  </div>
+</template>
 
-## Browser Support
+<script>
+import { GradualBlurVue as GradualBlur } from 'gradualblur'
+
+export default {
+  components: { GradualBlur },
+  methods: {
+    onReady() {
+      console.log('Blur animation complete!')
+    }
+  }
+}
+</script>
+```
+
+### Svelte Component
+
+```svelte
+<script>
+  import { GradualBlurSvelte as GradualBlur } from 'gradualblur'
+</script>
+
+<GradualBlur 
+  preset="modal"
+  animated="fade"
+  on:animationComplete={() => console.log('Done!')}
+/>
+```
+
+### Vanilla JavaScript
+
+```html
+<!-- Auto-initialize with data attributes -->
+<div data-gradual-blur 
+     data-gradual-blur-preset="hero"
+     data-gradual-blur-animated="scroll">
+</div>
+
+<!-- Or programmatically -->
+<script>
+import { GradualBlurJS } from 'gradualblur'
+
+const blur = new GradualBlurJS('.my-element', {
+  preset: 'navigation',
+  animated: 'hover',
+  hoverIntensity: 2
+})
+</script>
+```
+
+## 🎛️ CLI Options
+
+### Basic Options
+| Option | Description | Default |
+|--------|-------------|----------|
+| `-p, --position <pos>` | Position (`top`\|`bottom`\|`left`\|`right`) | `bottom` |
+| `-s, --strength <num>` | Blur strength multiplier | `2` |
+| `-h, --height <size>` | Height of blur area | `7rem` |
+| `-w, --width <size>` | Width of blur area | `100%` |
+| `-d, --divs <num>` | Number of blur layers | `5` |
+| `-z, --zindex <num>` | CSS z-index value | `1000` |
+| `-e, --exponential` | Use exponential progression | `false` |
+
+### Animation Options
+| Option | Description | Default |
+|--------|-------------|----------|
+| `--animated <type>` | Animation type (`scroll`\|`hover`\|`fade`) | `false` |
+| `--duration <time>` | Animation duration | `0.3s` |
+| `--easing <func>` | Easing function | `ease-out` |
+| `--hover-intensity <num>` | Hover blur multiplier | - |
+
+### Styling Options
+| Option | Description | Default |
+|--------|-------------|----------|
+| `--tint <color>` | Color overlay (rgba/hex) | - |
+| `--opacity <num>` | Blur layer opacity | `1` |
+| `--curve <type>` | Progression (`linear`\|`bezier`\|`ease-in-out`) | `linear` |
+
+### Responsive Options
+| Option | Description | Default |
+|--------|-------------|----------|
+| `--responsive` | Enable breakpoints | `false` |
+| `--mobile-height <size>` | Height on mobile (≤768px) | - |
+| `--tablet-height <size>` | Height on tablet (769-1024px) | - |
+| `--desktop-height <size>` | Height on desktop (≥1025px) | - |
+
+### Advanced Options
+| Option | Description | Default |
+|--------|-------------|----------|
+| `--preset <name>` | Use preset (`hero`\|`navigation`\|`modal`\|`card`) | - |
+| `--zones <positions>` | Multiple zones (comma-separated) | - |
+| `--gpu-optimized` | Add GPU acceleration hints | `false` |
+| `--reduced-motion` | Respect accessibility preferences | `false` |
+
+## 🎨 Presets
+
+### Hero Section
+```bash
+gradual-blur --preset hero
+# → Bottom blur, 8rem height, 6 layers, fade animation
+```
+
+### Navigation Overlay
+```bash
+gradual-blur --preset navigation  
+# → Top blur, 4rem height, white tint, 4 layers
+```
+
+### Modal Background
+```bash
+gradual-blur --preset modal
+# → Full screen, dark tint, strong blur
+```
+
+### Card Effect
+```bash
+gradual-blur --preset card
+# → Small bottom blur, bezier curve, 4 layers
+```
+
+## 🎬 Animation Examples
+
+### Scroll-Triggered Blur
+```bash
+gradual-blur --animated scroll --duration 0.5s
+```
+
+### Hover Intensity
+```bash
+gradual-blur --animated hover --hover-intensity 2.5
+```
+
+### Fade-In Effect
+```bash
+gradual-blur --animated fade --easing ease-out
+```
+
+### Multiple Zones
+```bash
+gradual-blur --zones top,bottom --animated scroll
+```
+
+## 📱 Responsive Design
+
+```bash
+# Mobile-first approach
+gradual-blur --responsive \
+  --mobile-height 3rem \
+  --tablet-height 5rem \
+  --desktop-height 8rem
+```
+
+## 🎨 Color Tinting
+
+```bash
+# Dark overlay
+gradual-blur --tint "rgba(0,0,0,0.3)"
+
+# Light overlay  
+gradual-blur --tint "rgba(255,255,255,0.2)"
+
+# Colored overlay
+gradual-blur --tint "rgba(59,130,246,0.1)"
+```
+
+## ⚡ Performance
+
+```bash
+# GPU optimization
+gradual-blur --gpu-optimized
+
+# Reduced motion support
+gradual-blur --reduced-motion
+
+# Fewer layers for better performance
+gradual-blur --divs 3 --strength 3
+```
+
+## 🔧 Advanced Usage
+
+### Custom Curves
+```bash
+# Smooth bezier progression
+gradual-blur --curve bezier
+
+# Ease-in-out progression  
+gradual-blur --curve ease-in-out
+
+# Exponential with bezier
+gradual-blur --exponential --curve bezier
+```
+
+### Multi-directional
+```bash
+# Left side blur
+gradual-blur --position left --width 5rem
+
+# Right side blur
+gradual-blur --position right --width 8rem
+```
+
+## 🌐 Framework Integration
+
+### React Props
+```jsx
+<GradualBlur
+  preset="hero"              // Preset configuration
+  position="bottom"          // Position
+  strength={2.5}             // Blur strength
+  height="8rem"              // Container height
+  animated="scroll"          // Animation type
+  tint="rgba(0,0,0,0.2)"     // Color overlay
+  responsive                 // Enable breakpoints
+  mobileHeight="4rem"        // Mobile height
+  hoverIntensity={1.5}       // Hover multiplier
+  gpuOptimized               // GPU acceleration
+  onAnimationComplete={fn}   // Callback
+/>
+```
+
+### Vue Props
+```vue
+<GradualBlur
+  :preset="'navigation'"
+  :strength="2"
+  :animated="'fade'"
+  :responsive="true"
+  @animation-complete="handleComplete"
+/>
+```
+
+### Vanilla JS Options
+```javascript
+const blur = new GradualBlurJS('.element', {
+  preset: 'modal',
+  animated: 'scroll',
+  tint: 'rgba(0,0,0,0.3)',
+  responsive: true,
+  onAnimationComplete: () => console.log('Done!')
+})
+
+// Update configuration
+blur.updateConfig({ strength: 3 })
+
+// Control visibility
+blur.show()
+blur.hide()
+
+// Cleanup
+blur.destroy()
+```
+
+## 🎯 Use Cases
+
+- **🏠 Hero Sections**: Fade content into blurred edges
+- **🧭 Navigation**: Blur content behind floating nav bars
+- **📱 Modals**: Create depth with blurred backgrounds  
+- **🖼️ Image Overlays**: Improve text readability
+- **📜 Scroll Effects**: Dynamic blur on scroll
+- **🎴 Cards**: Subtle blur effects on hover
+- **🎬 Video Players**: Blur controls overlay
+- **📊 Dashboards**: Section separators
+
+## 🌍 Browser Support
 
 Requires `backdrop-filter` support:
-- Chrome 76+
-- Firefox 103+
-- Safari 9+
-- Edge 79+
+- ✅ Chrome 76+
+- ✅ Firefox 103+  
+- ✅ Safari 9+
+- ✅ Edge 79+
 
-## License
+## 📄 License
 
 MIT © Ansh Dhanani
