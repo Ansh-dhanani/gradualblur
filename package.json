@@ -1,0 +1,46 @@
+{
+  "name": "gradual-blur-cli",
+  "version": "1.0.0",
+  "description": "CLI tool to generate CSS for gradual blur effects",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "bin": {
+    "gradual-blur": "./bin/cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "css",
+    "blur",
+    "gradient",
+    "cli",
+    "backdrop-filter"
+  ],
+  "author": "<your-name> <your-email@example.com>",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^11.0.0",
+    "mathjs": "^11.11.0",
+    "react": "^18.3.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/<your-username>/gradual-blur-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/<your-username>/gradual-blur-cli/issues"
+  },
+  "homepage": "https://github.com/<your-username>/gradual-blur-cli#readme",
+  "files": [
+    "bin/",
+    "lib/",
+    "index.js",
+    "index.d.ts",
+    "Gradualblur.jsx",
+    "README.md"
+  ]
+}
