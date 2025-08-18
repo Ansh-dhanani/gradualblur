@@ -22,11 +22,11 @@ npm install gradualblur
 # Basic blur at bottom of screen
 gradual-blur
 
-# Hero section style
-gradual-blur --preset hero
+# Top blur preset
+gradual-blur --preset top
 
-# Navigation bar style
-gradual-blur --preset navigation
+# Bottom blur preset
+gradual-blur --preset bottom
 ```
 
 ### React
@@ -40,9 +40,9 @@ function App() {
       {/* Simple bottom blur */}
       <GradualBlur />
       
-      {/* Hero section with animation */}
+      {/* Bottom blur with animation */}
       <GradualBlur 
-        preset="hero"
+        preset="bottom"
         animated="fade"
       />
       
@@ -61,41 +61,29 @@ function App() {
 
 | Option | What it does | Example |
 |--------|-------------|----------|
-| `--preset hero` | Ready-made hero section style | `gradual-blur --preset hero` |
-| `--preset navigation` | Perfect for nav bars | `gradual-blur --preset navigation` |
-| `--position top` | Blur from top instead of bottom | `gradual-blur --position top` |
+| `--preset top` | Top blur preset | `gradual-blur --preset top` |
+| `--preset bottom` | Bottom blur preset | `gradual-blur --preset bottom` |
+| `--position left` | Blur from left side | `gradual-blur --position left --width 6rem` |
 | `--strength 3` | Make blur stronger | `gradual-blur --strength 3` |
 | `--height 10rem` | Change blur area height | `gradual-blur --height 10rem` |
 | `--animated scroll` | Blur appears when scrolling | `gradual-blur --animated scroll` |
-| `--tint "rgba(0,0,0,0.2)"` | Add dark overlay | `gradual-blur --tint "rgba(0,0,0,0.2)"` |
+| `--relative` | Use relative positioning | `gradual-blur --relative` |
 
 ## Presets
 
-We've created some ready-to-use styles:
+Simple, clean presets:
 
-**Hero Section**
+**Top Blur**
 ```bash
-gradual-blur --preset hero
+gradual-blur --preset top
 ```
-Perfect for landing pages. Creates a smooth fade at the bottom.
+Blur from the top edge. Perfect for navigation overlays.
 
-**Navigation Bar**
+**Bottom Blur**
 ```bash
-gradual-blur --preset navigation
+gradual-blur --preset bottom
 ```
-Great for floating nav bars. Blurs content behind the navigation.
-
-**Modal Background**
-```bash
-gradual-blur --preset modal
-```
-Full-screen blur with dark tint for modal dialogs.
-
-**Card Effect**
-```bash
-gradual-blur --preset card
-```
-Subtle blur for card components and overlays.
+Blur from the bottom edge. Great for hero sections and footers.
 
 ## Animations
 
@@ -124,19 +112,20 @@ Blur fades in smoothly when page loads.
 gradual-blur --responsive --mobile-height 3rem --desktop-height 8rem
 ```
 
-## Color Tinting
+## Positioning
 
-Add color overlays to your blur:
+Choose between fixed (default) or relative positioning:
 
 ```bash
-# Dark overlay
-gradual-blur --tint "rgba(0,0,0,0.3)"
+# Fixed positioning (default)
+gradual-blur --position bottom
 
-# Light overlay
-gradual-blur --tint "rgba(255,255,255,0.2)"
+# Relative positioning
+gradual-blur --relative --position bottom
 
-# Blue tint
-gradual-blur --tint "rgba(59,130,246,0.1)"
+# Side blur effects
+gradual-blur --position left --width 6rem
+gradual-blur --position right --width 6rem
 ```
 
 ## Framework Usage
@@ -145,7 +134,7 @@ gradual-blur --tint "rgba(59,130,246,0.1)"
 
 ```vue
 <template>
-  <GradualBlur preset="navigation" animated="scroll" />
+  <GradualBlur preset="top" animated="scroll" />
 </template>
 
 <script>
@@ -163,21 +152,21 @@ export default {
   import { GradualBlurSvelte as GradualBlur } from 'gradualblur'
 </script>
 
-<GradualBlur preset="hero" animated="fade" />
+<GradualBlur preset="bottom" animated="fade" />
 ```
 
 ### Vanilla JavaScript
 
 ```html
 <!-- Simple HTML setup -->
-<div data-gradual-blur data-gradual-blur-preset="hero"></div>
+<div data-gradual-blur data-gradual-blur-preset="bottom"></div>
 
 <!-- Or with JavaScript -->
 <script>
 import { GradualBlurJS } from 'gradualblur'
 
 const blur = new GradualBlurJS('.my-element', {
-  preset: 'navigation',
+  preset: 'top',
   animated: 'scroll'
 })
 </script>
@@ -187,22 +176,22 @@ const blur = new GradualBlurJS('.my-element', {
 
 **Landing Page Hero**
 ```bash
-gradual-blur --preset hero --animated fade --tint "rgba(0,0,0,0.1)"
+gradual-blur --preset bottom --animated fade --height 8rem
 ```
 
 **Floating Navigation**
 ```bash
-gradual-blur --preset navigation --animated scroll
+gradual-blur --preset top --animated scroll
 ```
 
-**Image Overlay**
+**Side Panel Blur**
 ```bash
-gradual-blur --position bottom --height 5rem --strength 2 --tint "rgba(0,0,0,0.4)"
+gradual-blur --position left --width 5rem --strength 2
 ```
 
-**Modal Dialog**
+**Custom Blur**
 ```bash
-gradual-blur --preset modal --animated fade
+gradual-blur --position bottom --height 10rem --strength 3 --curve bezier
 ```
 
 ## Browser Support
@@ -218,7 +207,7 @@ Works in all modern browsers that support `backdrop-filter`:
 - Start with presets, then customize as needed
 - Use `--strength 1-3` for most cases (higher = more blur)
 - Add `--animated scroll` for modern feel
-- Use `--tint` to improve text readability
+- Use custom CSS backgrounds for color overlays
 - Test on mobile with `--responsive`
 
 ## License
