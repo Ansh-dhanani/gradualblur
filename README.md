@@ -1,31 +1,130 @@
-# Gradual Blur CLI
+# GradualBlur
 
-A command-line tool to generate CSS for beautiful gradual blur effects.
+🌊 Generate beautiful gradual blur effects for your web projects. Creates smooth backdrop-filter blur transitions that fade from transparent to blurred.
 
 ## Installation
 
 ```bash
-# For CLI usage
-npm install -g gradual-blur-cli
+# Install globally for CLI usage
+npm install -g gradualblur
 
-# For React/TypeScript projects
-npm install gradual-blur-cli
+# Or install locally for React projects
+npm install gradualblur
 ```
 
-## Usage
+## CLI Usage
 
-### React/TypeScript Component
+### Basic Command
+```bash
+gradual-blur
+```
+
+This generates CSS for a gradual blur effect at the bottom of the screen.
+
+### Options
+
+| Option | Description | Default |
+|--------|-------------|----------|
+| `-p, --position <position>` | Position (`top` or `bottom`) | `bottom` |
+| `-s, --strength <number>` | Blur strength multiplier | `2` |
+| `-h, --height <height>` | Height of blur area | `7rem` |
+| `-w, --width <width>` | Width of blur area | `100%` |
+| `-d, --divs <number>` | Number of blur layers | `5` |
+| `-z, --zindex <number>` | CSS z-index value | `1000` |
+| `-e, --exponential` | Use exponential blur progression | `false` |
+| `-o, --output <file>` | Save CSS to file | stdout |
+| `--html` | Generate HTML structure | `false` |
+
+### Examples
+
+```bash
+# Basic bottom blur
+gradual-blur
+
+# Top blur with custom strength
+gradual-blur --position top --strength 3
+
+# Save to file with exponential progression
+gradual-blur --exponential --output blur.css
+
+# Custom dimensions and z-index
+gradual-blur --height 10rem --width 50% --zindex 999
+
+# Get HTML structure
+gradual-blur --html
+```
+
+## How It Works
+
+The tool generates CSS using `backdrop-filter: blur()` with multiple layers and mask gradients to create a smooth transition from no blur to full blur.
+
+### Generated CSS Structure
+
+```css
+.gradual-blur {
+  /* Fixed positioned container */
+  position: fixed;
+  height: 7rem;
+  width: 100%;
+  bottom: 0; /* or top: 0 */
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.gradual-blur-layer-1,
+.gradual-blur-layer-2,
+/* ... more layers */ {
+  position: absolute;
+  backdrop-filter: blur(0.125rem); /* increasing blur */
+  mask-image: linear-gradient(/* smooth transitions */);
+}
+```
+
+### HTML Usage
+
+1. Generate the CSS:
+```bash
+gradual-blur --output blur.css
+```
+
+2. Include in your HTML:
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="blur.css">
+</head>
+<body>
+  <!-- Your content -->
+  
+  <!-- Add blur overlay -->
+  <div class="gradual-blur">
+    <div class="gradual-blur-inner">
+      <div class="gradual-blur-layer-1"></div>
+      <div class="gradual-blur-layer-2"></div>
+      <div class="gradual-blur-layer-3"></div>
+      <div class="gradual-blur-layer-4"></div>
+      <div class="gradual-blur-layer-5"></div>
+    </div>
+  </div>
+</body>
+</html>
+```
+
+## React Component
 
 ```jsx
-import GradualBlur from 'gradual-blur-cli';
+import GradualBlur from 'gradualblur';
 
 function App() {
   return (
     <div>
-      {/* Default blur at bottom */}
+      {/* Your content */}
+      
+      {/* Default bottom blur */}
       <GradualBlur />
       
-      {/* Custom blur at top */}
+      {/* Custom top blur */}
       <GradualBlur 
         position="top" 
         strength={3} 
@@ -36,61 +135,22 @@ function App() {
 }
 ```
 
-### CLI Tool
+## Use Cases
 
-```bash
-gradual-blur [options]
-```
+- **Navigation overlays** - Blur content behind floating navigation
+- **Modal backgrounds** - Create depth with blurred backgrounds
+- **Hero sections** - Fade content into blurred edges
+- **Scroll effects** - Blur content as it approaches screen edges
+- **Image overlays** - Add text readability over images
 
-### Options
+## Browser Support
 
-- `-p, --position <position>` - Position of blur effect (`top` or `bottom`, default: `bottom`)
-- `-s, --strength <number>` - Blur strength multiplier (default: `2`)
-- `-h, --height <height>` - Height of blur effect (default: `7rem`)
-- `-d, --divs <number>` - Number of blur divisions (default: `5`)
-- `-e, --exponential` - Use exponential blur progression (default: linear)
-- `-o, --output <file>` - Output CSS to file (default: stdout)
-
-### Examples
-
-```bash
-# Basic usage - outputs CSS to console
-gradual-blur
-
-# Generate top blur with custom strength
-gradual-blur --position top --strength 3
-
-# Generate blur with exponential progression and save to file
-gradual-blur --exponential --output blur.css
-
-# Custom height and divisions
-gradual-blur --height 10rem --divs 8 --strength 1.5
-```
-
-### Output
-
-The tool generates CSS classes that you can use in your HTML:
-
-```html
-<div class="gradual-blur">
-  <div class="gradual-blur-inner">
-    <div class="gradual-blur-layer-1"></div>
-    <div class="gradual-blur-layer-2"></div>
-    <div class="gradual-blur-layer-3"></div>
-    <div class="gradual-blur-layer-4"></div>
-    <div class="gradual-blur-layer-5"></div>
-  </div>
-</div>
-```
-
-## Parameters Explained
-
-- **Position**: `top` places blur at top of screen, `bottom` at bottom
-- **Strength**: Multiplier for blur intensity (higher = more blur)
-- **Height**: CSS height value for the blur container
-- **Divs**: Number of blur layers (more = smoother gradient)
-- **Exponential**: Creates more dramatic blur progression
+Requires `backdrop-filter` support:
+- Chrome 76+
+- Firefox 103+
+- Safari 9+
+- Edge 79+
 
 ## License
 
-MIT
+MIT © Ansh Dhanani
