@@ -50,24 +50,24 @@ const GradualBlur = ({
   const [isHovered, setIsHovered] = useState(false);
   
   // Apply preset if specified
-  const config = preset && PRESETS[preset] ? { ...PRESETS[preset], ...arguments[0] } : arguments[0];
+  const presetConfig = preset && PRESETS[preset] ? PRESETS[preset] : {};
   
-  // Use config values or fallback to props
+  // Use preset values or fallback to props
   const finalConfig = {
-    position: config.position || position,
-    strength: config.strength || strength,
-    height: config.height || height,
-    width: config.width || width,
-    divCount: config.divCount || divCount,
-    exponential: config.exponential !== undefined ? config.exponential : exponential,
-    zIndex: config.zIndex || zIndex,
-    animated: config.animated || animated,
-    duration: config.duration || duration,
-    easing: config.easing || easing,
-    tint: config.tint || tint,
-    opacity: config.opacity !== undefined ? config.opacity : opacity,
-    curve: config.curve || curve,
-    hoverIntensity: config.hoverIntensity || hoverIntensity
+    position: presetConfig.position || position,
+    strength: presetConfig.strength || strength,
+    height: presetConfig.height || height,
+    width: presetConfig.width || width,
+    divCount: presetConfig.divCount || divCount,
+    exponential: presetConfig.exponential !== undefined ? presetConfig.exponential : exponential,
+    zIndex: presetConfig.zIndex || zIndex,
+    animated: presetConfig.animated || animated,
+    duration: presetConfig.duration || duration,
+    easing: presetConfig.easing || easing,
+    tint: presetConfig.tint || tint,
+    opacity: presetConfig.opacity !== undefined ? presetConfig.opacity : opacity,
+    curve: presetConfig.curve || curve,
+    hoverIntensity: presetConfig.hoverIntensity || hoverIntensity
   };
   
   // Scroll animation effect
