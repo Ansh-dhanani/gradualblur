@@ -1,5 +1,7 @@
 # GradualBlur
 
+![GradualBlur Demo](https://raw.githubusercontent.com/Ansh-dhanani/gradualblur/main/demo.gif)
+
 Create beautiful gradual blur effects that fade smoothly from clear to blurred. Perfect for hero sections, navigation overlays, and modern UI designs.
 
 ## Installation
