@@ -1,5 +1,5 @@
 {
-  "name": "gradual-blur-cli",
+  "name": "gradualblur",
   "version": "1.0.0",
   "description": "CLI tool to generate CSS for gradual blur effects",
   "main": "index.js",
@@ -17,7 +17,7 @@
     "cli",
     "backdrop-filter"
   ],
-  "author": "<your-name> <your-email@example.com>",
+  "author": "ansh dhanani <dhananiansh01@gmial.com>",
   "license": "MIT",
   "dependencies": {
     "commander": "^11.0.0",
@@ -29,12 +29,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/<your-username>/gradual-blur-cli.git"
+    "url": "https://github.com/Ansh-dhanani/gradualblur.git"
   },
   "bugs": {
-    "url": "https://github.com/<your-username>/gradual-blur-cli/issues"
+    "url": "https://github.com/Ansh-dhanani/gradualblur/issues"
   },
-  "homepage": "https://github.com/<your-username>/gradual-blur-cli#readme",
+  "homepage": "https://github.com/Ansh-dhanani/gradualblur#readme",
   "files": [
     "bin/",
     "lib/",
