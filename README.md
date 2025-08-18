@@ -1,48 +1,33 @@
-# GradualBlur 2.0
+# GradualBlur
 
-🌊 **Advanced gradual blur effects** with animations, presets, responsive design, and multi-framework support. Creates smooth backdrop-filter blur transitions with professional-grade features.
+Create beautiful gradual blur effects that fade smoothly from clear to blurred. Perfect for hero sections, navigation overlays, and modern UI designs.
 
-## ✨ Features
-
-- 🎨 **Multiple Frameworks**: React, Vue, Svelte, Vanilla JS
-- 🎬 **Animations**: Scroll-triggered, hover effects, fade-in
-- 📱 **Responsive**: Mobile-first breakpoints
-- 🎯 **Presets**: Hero, navigation, modal, card styles
-- 🎨 **Color Tinting**: Add color overlays
-- 📐 **Advanced Curves**: Linear, bezier, ease-in-out progressions
-- ⚡ **GPU Optimized**: Hardware acceleration support
-- ♿ **Accessibility**: Respects `prefers-reduced-motion`
-- 🎛️ **Multi-directional**: Top, bottom, left, right positioning
-
-## 📦 Installation
+## Installation
 
 ```bash
-# CLI tool (global)
+# For command line usage
 npm install -g gradualblur
 
-# Library (local)
+# For React/Vue/Svelte projects
 npm install gradualblur
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
-### CLI Usage
+### Command Line
 
 ```bash
-# Basic blur
+# Basic blur at bottom of screen
 gradual-blur
 
-# Hero section preset
+# Hero section style
 gradual-blur --preset hero
 
-# Animated scroll trigger
-gradual-blur --animated scroll --tint "rgba(0,0,0,0.2)"
-
-# Responsive with multiple zones
-gradual-blur --responsive --zones top,bottom --mobile-height 3rem
+# Navigation bar style
+gradual-blur --preset navigation
 ```
 
-### React Component
+### React
 
 ```jsx
 import GradualBlur from 'gradualblur';
@@ -50,311 +35,190 @@ import GradualBlur from 'gradualblur';
 function App() {
   return (
     <div>
-      {/* Hero preset with animation */}
+      {/* Simple bottom blur */}
+      <GradualBlur />
+      
+      {/* Hero section with animation */}
       <GradualBlur 
         preset="hero"
         animated="fade"
-        onAnimationComplete={() => console.log('Ready!')}
       />
       
-      {/* Custom responsive blur */}
+      {/* Custom blur with hover effect */}
       <GradualBlur 
         position="top"
-        strength={2.5}
-        tint="rgba(255,255,255,0.1)"
-        responsive
-        mobileHeight="4rem"
-        desktopHeight="8rem"
-        hoverIntensity={1.5}
+        strength={3}
+        hoverIntensity={2}
       />
     </div>
   );
 }
 ```
 
-### Vue Component
+## Common Options
+
+| Option | What it does | Example |
+|--------|-------------|----------|
+| `--preset hero` | Ready-made hero section style | `gradual-blur --preset hero` |
+| `--preset navigation` | Perfect for nav bars | `gradual-blur --preset navigation` |
+| `--position top` | Blur from top instead of bottom | `gradual-blur --position top` |
+| `--strength 3` | Make blur stronger | `gradual-blur --strength 3` |
+| `--height 10rem` | Change blur area height | `gradual-blur --height 10rem` |
+| `--animated scroll` | Blur appears when scrolling | `gradual-blur --animated scroll` |
+| `--tint "rgba(0,0,0,0.2)"` | Add dark overlay | `gradual-blur --tint "rgba(0,0,0,0.2)"` |
+
+## Presets
+
+We've created some ready-to-use styles:
+
+**Hero Section**
+```bash
+gradual-blur --preset hero
+```
+Perfect for landing pages. Creates a smooth fade at the bottom.
+
+**Navigation Bar**
+```bash
+gradual-blur --preset navigation
+```
+Great for floating nav bars. Blurs content behind the navigation.
+
+**Modal Background**
+```bash
+gradual-blur --preset modal
+```
+Full-screen blur with dark tint for modal dialogs.
+
+**Card Effect**
+```bash
+gradual-blur --preset card
+```
+Subtle blur for card components and overlays.
+
+## Animations
+
+**Scroll Animation**
+```bash
+gradual-blur --animated scroll
+```
+Blur appears when element comes into view.
+
+**Hover Effect**
+```bash
+gradual-blur --animated hover --hover-intensity 2
+```
+Blur gets stronger when you hover over it.
+
+**Fade In**
+```bash
+gradual-blur --animated fade
+```
+Blur fades in smoothly when page loads.
+
+## Responsive Design
+
+```bash
+# Different heights for different screen sizes
+gradual-blur --responsive --mobile-height 3rem --desktop-height 8rem
+```
+
+## Color Tinting
+
+Add color overlays to your blur:
+
+```bash
+# Dark overlay
+gradual-blur --tint "rgba(0,0,0,0.3)"
+
+# Light overlay
+gradual-blur --tint "rgba(255,255,255,0.2)"
+
+# Blue tint
+gradual-blur --tint "rgba(59,130,246,0.1)"
+```
+
+## Framework Usage
+
+### Vue.js
 
 ```vue
 <template>
-  <div>
-    <GradualBlur 
-      preset="navigation"
-      :animated="'scroll'"
-      @animation-complete="onReady"
-    />
-  </div>
+  <GradualBlur preset="navigation" animated="scroll" />
 </template>
 
 <script>
 import { GradualBlurVue as GradualBlur } from 'gradualblur'
-
 export default {
-  components: { GradualBlur },
-  methods: {
-    onReady() {
-      console.log('Blur animation complete!')
-    }
-  }
+  components: { GradualBlur }
 }
 </script>
 ```
 
-### Svelte Component
+### Svelte
 
 ```svelte
 <script>
   import { GradualBlurSvelte as GradualBlur } from 'gradualblur'
 </script>
 
-<GradualBlur 
-  preset="modal"
-  animated="fade"
-  on:animationComplete={() => console.log('Done!')}
-/>
+<GradualBlur preset="hero" animated="fade" />
 ```
 
 ### Vanilla JavaScript
 
 ```html
-<!-- Auto-initialize with data attributes -->
-<div data-gradual-blur 
-     data-gradual-blur-preset="hero"
-     data-gradual-blur-animated="scroll">
-</div>
+<!-- Simple HTML setup -->
+<div data-gradual-blur data-gradual-blur-preset="hero"></div>
 
-<!-- Or programmatically -->
+<!-- Or with JavaScript -->
 <script>
 import { GradualBlurJS } from 'gradualblur'
 
 const blur = new GradualBlurJS('.my-element', {
   preset: 'navigation',
-  animated: 'hover',
-  hoverIntensity: 2
+  animated: 'scroll'
 })
 </script>
 ```
 
-## 🎛️ CLI Options
+## Real-World Examples
 
-### Basic Options
-| Option | Description | Default |
-|--------|-------------|----------|
-| `-p, --position <pos>` | Position (`top`\|`bottom`\|`left`\|`right`) | `bottom` |
-| `-s, --strength <num>` | Blur strength multiplier | `2` |
-| `-h, --height <size>` | Height of blur area | `7rem` |
-| `-w, --width <size>` | Width of blur area | `100%` |
-| `-d, --divs <num>` | Number of blur layers | `5` |
-| `-z, --zindex <num>` | CSS z-index value | `1000` |
-| `-e, --exponential` | Use exponential progression | `false` |
-
-### Animation Options
-| Option | Description | Default |
-|--------|-------------|----------|
-| `--animated <type>` | Animation type (`scroll`\|`hover`\|`fade`) | `false` |
-| `--duration <time>` | Animation duration | `0.3s` |
-| `--easing <func>` | Easing function | `ease-out` |
-| `--hover-intensity <num>` | Hover blur multiplier | - |
-
-### Styling Options
-| Option | Description | Default |
-|--------|-------------|----------|
-| `--tint <color>` | Color overlay (rgba/hex) | - |
-| `--opacity <num>` | Blur layer opacity | `1` |
-| `--curve <type>` | Progression (`linear`\|`bezier`\|`ease-in-out`) | `linear` |
-
-### Responsive Options
-| Option | Description | Default |
-|--------|-------------|----------|
-| `--responsive` | Enable breakpoints | `false` |
-| `--mobile-height <size>` | Height on mobile (≤768px) | - |
-| `--tablet-height <size>` | Height on tablet (769-1024px) | - |
-| `--desktop-height <size>` | Height on desktop (≥1025px) | - |
-
-### Advanced Options
-| Option | Description | Default |
-|--------|-------------|----------|
-| `--preset <name>` | Use preset (`hero`\|`navigation`\|`modal`\|`card`) | - |
-| `--zones <positions>` | Multiple zones (comma-separated) | - |
-| `--gpu-optimized` | Add GPU acceleration hints | `false` |
-| `--reduced-motion` | Respect accessibility preferences | `false` |
-
-## 🎨 Presets
-
-### Hero Section
+**Landing Page Hero**
 ```bash
-gradual-blur --preset hero
-# → Bottom blur, 8rem height, 6 layers, fade animation
+gradual-blur --preset hero --animated fade --tint "rgba(0,0,0,0.1)"
 ```
 
-### Navigation Overlay
+**Floating Navigation**
 ```bash
-gradual-blur --preset navigation  
-# → Top blur, 4rem height, white tint, 4 layers
+gradual-blur --preset navigation --animated scroll
 ```
 
-### Modal Background
+**Image Overlay**
 ```bash
-gradual-blur --preset modal
-# → Full screen, dark tint, strong blur
+gradual-blur --position bottom --height 5rem --strength 2 --tint "rgba(0,0,0,0.4)"
 ```
 
-### Card Effect
+**Modal Dialog**
 ```bash
-gradual-blur --preset card
-# → Small bottom blur, bezier curve, 4 layers
+gradual-blur --preset modal --animated fade
 ```
 
-## 🎬 Animation Examples
+## Browser Support
 
-### Scroll-Triggered Blur
-```bash
-gradual-blur --animated scroll --duration 0.5s
-```
+Works in all modern browsers that support `backdrop-filter`:
+- Chrome 76+
+- Firefox 103+
+- Safari 9+
+- Edge 79+
 
-### Hover Intensity
-```bash
-gradual-blur --animated hover --hover-intensity 2.5
-```
+## Tips
 
-### Fade-In Effect
-```bash
-gradual-blur --animated fade --easing ease-out
-```
+- Start with presets, then customize as needed
+- Use `--strength 1-3` for most cases (higher = more blur)
+- Add `--animated scroll` for modern feel
+- Use `--tint` to improve text readability
+- Test on mobile with `--responsive`
 
-### Multiple Zones
-```bash
-gradual-blur --zones top,bottom --animated scroll
-```
-
-## 📱 Responsive Design
-
-```bash
-# Mobile-first approach
-gradual-blur --responsive \
-  --mobile-height 3rem \
-  --tablet-height 5rem \
-  --desktop-height 8rem
-```
-
-## 🎨 Color Tinting
-
-```bash
-# Dark overlay
-gradual-blur --tint "rgba(0,0,0,0.3)"
-
-# Light overlay  
-gradual-blur --tint "rgba(255,255,255,0.2)"
-
-# Colored overlay
-gradual-blur --tint "rgba(59,130,246,0.1)"
-```
-
-## ⚡ Performance
-
-```bash
-# GPU optimization
-gradual-blur --gpu-optimized
-
-# Reduced motion support
-gradual-blur --reduced-motion
-
-# Fewer layers for better performance
-gradual-blur --divs 3 --strength 3
-```
-
-## 🔧 Advanced Usage
-
-### Custom Curves
-```bash
-# Smooth bezier progression
-gradual-blur --curve bezier
-
-# Ease-in-out progression  
-gradual-blur --curve ease-in-out
-
-# Exponential with bezier
-gradual-blur --exponential --curve bezier
-```
-
-### Multi-directional
-```bash
-# Left side blur
-gradual-blur --position left --width 5rem
-
-# Right side blur
-gradual-blur --position right --width 8rem
-```
-
-## 🌐 Framework Integration
-
-### React Props
-```jsx
-<GradualBlur
-  preset="hero"              // Preset configuration
-  position="bottom"          // Position
-  strength={2.5}             // Blur strength
-  height="8rem"              // Container height
-  animated="scroll"          // Animation type
-  tint="rgba(0,0,0,0.2)"     // Color overlay
-  responsive                 // Enable breakpoints
-  mobileHeight="4rem"        // Mobile height
-  hoverIntensity={1.5}       // Hover multiplier
-  gpuOptimized               // GPU acceleration
-  onAnimationComplete={fn}   // Callback
-/>
-```
-
-### Vue Props
-```vue
-<GradualBlur
-  :preset="'navigation'"
-  :strength="2"
-  :animated="'fade'"
-  :responsive="true"
-  @animation-complete="handleComplete"
-/>
-```
-
-### Vanilla JS Options
-```javascript
-const blur = new GradualBlurJS('.element', {
-  preset: 'modal',
-  animated: 'scroll',
-  tint: 'rgba(0,0,0,0.3)',
-  responsive: true,
-  onAnimationComplete: () => console.log('Done!')
-})
-
-// Update configuration
-blur.updateConfig({ strength: 3 })
-
-// Control visibility
-blur.show()
-blur.hide()
-
-// Cleanup
-blur.destroy()
-```
-
-## 🎯 Use Cases
-
-- **🏠 Hero Sections**: Fade content into blurred edges
-- **🧭 Navigation**: Blur content behind floating nav bars
-- **📱 Modals**: Create depth with blurred backgrounds  
-- **🖼️ Image Overlays**: Improve text readability
-- **📜 Scroll Effects**: Dynamic blur on scroll
-- **🎴 Cards**: Subtle blur effects on hover
-- **🎬 Video Players**: Blur controls overlay
-- **📊 Dashboards**: Section separators
-
-## 🌍 Browser Support
-
-Requires `backdrop-filter` support:
-- ✅ Chrome 76+
-- ✅ Firefox 103+  
-- ✅ Safari 9+
-- ✅ Edge 79+
-
-## 📄 License
+## License
 
 MIT © Ansh Dhanani
