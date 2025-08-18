@@ -37,7 +37,9 @@
   let observer
 
   // Apply preset configuration
-  $: finalConfig = preset && PRESETS[preset] ? { ...PRESETS[preset], position, strength, height, width, divCount, exponential, zIndex, animated, duration, easing, tint, opacity, curve, gpuOptimized, hoverIntensity } : { position, strength, height, width, divCount, exponential, zIndex, animated, duration, easing, tint, opacity, curve, gpuOptimized, hoverIntensity }
+  $: finalConfig = preset && PRESETS[preset] ? 
+    { ...PRESETS[preset], position, strength, height, width, divCount, exponential, zIndex, animated, duration, easing, tint, opacity, curve, gpuOptimized, hoverIntensity } : 
+    { position, strength, height, width, divCount, exponential, zIndex, animated, duration, easing, tint, opacity, curve, gpuOptimized, hoverIntensity }
 
   function getBlurProgression(i, divCount, curve, exponential, strength) {
     let progress = i / divCount
@@ -67,13 +69,15 @@
     return directions[position] || 'to bottom'
   }
 
-  $: blurLayers = (() => {
+  $: blurLayers = getBlurLayers(finalConfig, isHovered)
+  
+  function getBlurLayers(config, hovered) {
     const layers = []
-    const increment = 100 / finalConfig.divCount
-    const currentStrength = isHovered && finalConfig.hoverIntensity ? 
-      finalConfig.strength * finalConfig.hoverIntensity : finalConfig.strength
+    const increment = 100 / config.divCount
+    const currentStrength = hovered && config.hoverIntensity ? 
+      config.strength * config.hoverIntensity : config.strength
 
-    for (let i = 1; i <= finalConfig.divCount; i++) {
+    for (let i = 1; i <= config.divCount; i++) {
       const c1 = 'transparent'
       const c2 = 'black'
       
@@ -92,39 +96,18 @@
         gradient = `${c1} ${p1}%, ${c2} ${p2}%, ${c2} ${p3}%, ${c1} ${p4}%`
       }
       
-      const blurValue = getBlurProgression(i, finalConfig.divCount, finalConfig.curve, finalConfig.exponential, currentStrength)
-      const direction = getGradientDirection(finalConfig.position)
+      const blurValue = getBlurProgression(i, config.divCount, config.curve, config.exponential, currentStrength)
+      const direction = getGradientDirection(config.position)
       
       layers.push({
-        style: `
-          position: absolute;
-          inset: 0;
-          mask-image: linear-gradient(${direction}, ${gradient});
-          -webkit-mask-image: linear-gradient(${direction}, ${gradient});
-          backdrop-filter: blur(${blurValue.toFixed(3)}rem);
-          opacity: ${finalConfig.opacity};
-          ${finalConfig.animated && finalConfig.animated !== 'scroll' ? 
-            `transition: backdrop-filter ${finalConfig.duration} ${finalConfig.easing};` : ''}
-        `
+        style: `position: absolute; inset: 0; mask-image: linear-gradient(${direction}, ${gradient}); -webkit-mask-image: linear-gradient(${direction}, ${gradient}); backdrop-filter: blur(${blurValue.toFixed(3)}rem); opacity: ${config.opacity}; ${config.animated && config.animated !== 'scroll' ? `transition: backdrop-filter ${config.duration} ${config.easing};` : ''}`
       })
     }
     
     return layers
-  })()
+  }
 
-  $: containerStyle = `
-    height: ${finalConfig.height};
-    width: ${finalConfig.width};
-    position: fixed;
-    ${finalConfig.position}: 0;
-    ${finalConfig.position === 'left' || finalConfig.position === 'right' ? 'top' : 'left'}: 0;
-    z-index: ${finalConfig.zIndex};
-    pointer-events: ${finalConfig.hoverIntensity ? 'auto' : 'none'};
-    opacity: ${isVisible ? 1 : 0};
-    ${finalConfig.animated ? `transition: opacity ${finalConfig.duration} ${finalConfig.easing};` : ''}
-    ${finalConfig.tint ? `background: ${finalConfig.tint};` : ''}
-    ${finalConfig.gpuOptimized ? 'will-change: transform, opacity; transform: translateZ(0);' : ''}
-  `
+  $: containerStyle = `height: ${finalConfig.height}; width: ${finalConfig.width}; position: fixed; ${finalConfig.position}: 0; ${finalConfig.position === 'left' || finalConfig.position === 'right' ? 'top' : 'left'}: 0; z-index: ${finalConfig.zIndex}; pointer-events: ${finalConfig.hoverIntensity ? 'auto' : 'none'}; opacity: ${isVisible ? 1 : 0}; ${finalConfig.animated ? `transition: opacity ${finalConfig.duration} ${finalConfig.easing};` : ''} ${finalConfig.tint ? `background: ${finalConfig.tint};` : ''} ${finalConfig.gpuOptimized ? 'will-change: transform, opacity; transform: translateZ(0);' : ''}`
 
   function handleMouseEnter() {
     if (finalConfig.hoverIntensity) {
