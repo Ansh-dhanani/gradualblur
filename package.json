@@ -1,6 +1,6 @@
 {
   "name": "gradualblur",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CLI tool to generate CSS for gradual blur effects",
   "main": "index.js",
   "types": "index.d.ts",
@@ -21,7 +21,7 @@
   "license": "MIT",
   "dependencies": {
     "commander": "^11.0.0",
-    "gradualblur": "^1.0.0",
+
     "mathjs": "^11.11.0",
     "react": "^18.3.1"
   },
