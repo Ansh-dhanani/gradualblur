@@ -1,6 +1,6 @@
 # GradualBlur
 
-![GradualBlur Demo](gradualblur.gif)
+<img src="gradualblur.gif" alt="GradualBlur Demo" width="800">
 
 Create beautiful gradual blur effects that fade smoothly from clear to blurred. Perfect for hero sections, navigation overlays, and modern UI designs.
 
