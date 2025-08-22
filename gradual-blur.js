@@ -12,12 +12,12 @@ class GradualBlur {
 
     // Default configuration
     this.defaults = {
-      position: 'bottom',
-      strength: 2,
-      height: '7rem',
+      position: 'top',
+      strength: 1,
+      height: '6rem',
       width: '100%',
-      divCount: 5,
-      exponential: false,
+      divCount: 6,
+      exponential: 0.5,
       zIndex: 1000,
       animated: false,
       duration: '0.3s',
@@ -37,8 +37,8 @@ class GradualBlur {
 
     // Presets
     this.presets = {
-      top: { position: 'top', strength: 2, height: '6rem', divCount: 5 },
-      bottom: { position: 'bottom', strength: 2, height: '6rem', divCount: 5 }
+      top: { position: 'top', strength: 1, height: '6rem', divCount: 6, exponential: 0.5 },
+      bottom: { position: 'bottom', strength: 1, height: '6rem', divCount: 6, exponential: 0.5 }
     }
 
     // Apply preset if specified

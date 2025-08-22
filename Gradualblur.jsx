@@ -3,18 +3,18 @@ import * as math from 'mathjs';
 
 // Preset configurations
 const PRESETS = {
-  top: { position: 'top', strength: 2, height: '6rem', divCount: 5 },
-  bottom: { position: 'bottom', strength: 2, height: '6rem', divCount: 5 }
+  top: { position: 'top', strength: 1, height: '6rem', divCount: 6, exponential: 0.5 },
+  bottom: { position: 'bottom', strength: 1, height: '6rem', divCount: 6, exponential: 0.5 }
 };
 
 const GradualBlur = ({ 
   // Basic options
-  position = 'bottom',
-  strength = 2,
-  height = '7rem',
+  position = 'top',
+  strength = 1,
+  height = '6rem',
   width = '100%',
-  divCount = 5,
-  exponential = false,
+  divCount = 6,
+  exponential = 0.5,
   zIndex = 1000,
   
   // Animation options
