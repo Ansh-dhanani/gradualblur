@@ -281,6 +281,13 @@ const GradualBlur = (props) => {
     }
   }, [config.hoverIntensity]);
 
+  // CSS injection
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      injectStyles();
+    }
+  }, []);
+
   // Animation complete callback
   useEffect(() => {
     if (isVisible && config.animated === 'scroll' && config.onAnimationComplete) {
@@ -343,45 +350,23 @@ const injectStyles = () => {
     }
 
     .gradual-blur-page {
-      /* Page-level blur styles */
+      position: fixed;
+      z-index: 1100;
     }
 
     .gradual-blur-parent {
-      /* Parent-level blur styles */
+      position: absolute;
     }
 
     .gradual-blur-inner {
       pointer-events: none;
     }
 
-    /* Hover support */
-    .gradual-blur:hover .gradual-blur-inner {
-      /* Hover effects can be added here */
-    }
-
     /* Animation support */
     .gradual-blur {
       transition: opacity 0.3s ease-out;
-    }
-
-    /* Responsive utilities */
-    @media (max-width: 480px) {
-      .gradual-blur-responsive {
-        /* Mobile specific styles */
-      }
-    }
-
-    @media (max-width: 768px) {
-      .gradual-blur-responsive {
-        /* Tablet specific styles */
-      }
     }
   `;
   
   document.head.appendChild(styleElement);
 };
-
-// Inject styles on component mount
-if (typeof document !== 'undefined') {
-  injectStyles();
-}
