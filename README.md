@@ -36,7 +36,6 @@ function App() {
         height="10vh"
         target="parent" // or {"page" (with respect to whole page)}
         strength={3}
-        animated="scroll"
       />
       
       {/* Using presets */}
