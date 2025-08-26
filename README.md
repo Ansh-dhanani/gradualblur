@@ -34,7 +34,7 @@ function App() {
       <GradualBlur 
         position="bottom"
         height="10vh"
-        target="parent" // or "page"
+        target="parent" // or {"page" (with respect to whole page)}
         strength={3}
         animated="scroll"
       />
