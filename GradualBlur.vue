@@ -17,6 +17,9 @@
 </template>
 
 <script>
+// INSTALLATION
+// npm install gradualblur
+
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 
 const PRESETS = {

@@ -1,4 +1,7 @@
 <script>
+  // INSTALLATION
+  // npm install gradualblur
+  
   import { onMount, onDestroy } from 'svelte'
 
   // Props
