@@ -29,7 +29,18 @@
 
   const PRESETS = {
     top: { position: 'top', strength: 2, height: '6rem', divCount: 5 },
-    bottom: { position: 'bottom', strength: 2, height: '6rem', divCount: 5 }
+    bottom: { position: 'bottom', strength: 2, height: '6rem', divCount: 5 },
+    left: { position: 'left', strength: 2, height: '6rem', divCount: 5 },
+    right: { position: 'right', strength: 2, height: '6rem', divCount: 5 },
+    subtle: { height: '4rem', strength: 1, opacity: 0.8, divCount: 3 },
+    intense: { height: '10rem', strength: 4, divCount: 8, exponential: true },
+    smooth: { height: '8rem', curve: 'bezier', divCount: 10 },
+    sharp: { height: '5rem', curve: 'linear', divCount: 4 },
+    header: { position: 'top', height: '8rem', curve: 'ease-out' },
+    footer: { position: 'bottom', height: '8rem', curve: 'ease-out' },
+    sidebar: { position: 'left', height: '6rem', strength: 2.5 },
+    'page-header': { position: 'top', height: '10rem', target: 'page', strength: 3 },
+    'page-footer': { position: 'bottom', height: '10rem', target: 'page', strength: 3 }
   }
 
   let containerRef
@@ -182,6 +193,7 @@
   style={containerStyle}
   on:mouseenter={handleMouseEnter}
   on:mouseleave={handleMouseLeave}
+  role="presentation"
 >
   <div class="gradual-blur-inner" style="position: relative; width: 100%; height: 100%;">
     {#each blurLayers as layer, i}

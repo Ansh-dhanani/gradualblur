@@ -1,7 +1,7 @@
 {
   "name": "gradualblur",
   "version": "2.2.5",
-  "description": "Advanced gradual blur effects with animations, presets, and multi-framework support",
+  "description": "Advanced gradual blur effects with animations, presets, responsive design, and multi-framework support",
   "main": "index.js",
   "types": "index.d.ts",
   "bin": {
@@ -21,7 +21,10 @@
     "svelte",
     "animation",
     "responsive",
-    "presets"
+    "presets",
+    "page-blur",
+    "parent-blur",
+    "target-aware"
   ],
   "author": "ansh dhanani <dhananiansh01@gmial.com>",
   "license": "MIT",

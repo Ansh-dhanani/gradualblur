@@ -2,7 +2,7 @@
 
 <img src="gradualblur.gif" alt="GradualBlur Demo" width="800">
 
-Create beautiful gradual blur effects that fade smoothly from clear to blurred. Perfect for hero sections, navigation overlays, and modern UI designs.
+Create beautiful gradual blur effects that fade smoothly from clear to blurred. Perfect for hero sections, navigation overlays, and modern UI designs. Now with enhanced presets, target-aware positioning, and improved responsive design.
 
 ## Installation
 
@@ -71,19 +71,40 @@ function App() {
 
 ## Presets
 
-Simple, clean presets:
+Enhanced presets for common use cases:
 
-**Top Blur**
+**Basic Positions**
 ```bash
-gradual-blur --preset top
+gradual-blur --preset top        # Top edge blur
+gradual-blur --preset bottom     # Bottom edge blur  
+gradual-blur --preset left       # Left side blur
+gradual-blur --preset right      # Right side blur
 ```
-Blur from the top edge. Perfect for navigation overlays.
 
-**Bottom Blur**
+**Intensity Variations**
 ```bash
-gradual-blur --preset bottom
+gradual-blur --preset subtle     # Subtle, light blur
+gradual-blur --preset intense    # Strong, dramatic blur
 ```
-Blur from the bottom edge. Great for hero sections and footers.
+
+**Style Variations**
+```bash
+gradual-blur --preset smooth     # Smooth bezier curve
+gradual-blur --preset sharp      # Sharp linear transition
+```
+
+**Common Use Cases**
+```bash
+gradual-blur --preset header     # Header navigation blur
+gradual-blur --preset footer     # Footer section blur
+gradual-blur --preset sidebar    # Side panel blur
+```
+
+**Page-Level Blurs**
+```bash
+gradual-blur --preset page-header  # Full-page header blur
+gradual-blur --preset page-footer  # Full-page footer blur
+```
 
 ## Animations
 
@@ -114,18 +135,36 @@ gradual-blur --responsive --mobile-height 3rem --desktop-height 8rem
 
 ## Positioning
 
-Choose between fixed (default) or relative positioning:
+### Target-Aware Positioning
+
+Choose between page-level or parent-level positioning:
 
 ```bash
-# Fixed positioning (default)
+# Page-level blur (fixed positioning, covers entire viewport)
+gradual-blur --target page --position bottom
+
+# Parent-level blur (relative positioning, within parent container)
+gradual-blur --target parent --position bottom
+```
+
+### Side Blur Effects
+
+```bash
+# Left side blur
+gradual-blur --position left --width 6rem
+
+# Right side blur  
+gradual-blur --position right --width 6rem
+```
+
+### Legacy Positioning (Deprecated)
+
+```bash
+# Fixed positioning (legacy - use --target page instead)
 gradual-blur --position bottom
 
-# Relative positioning
+# Relative positioning (legacy - use --target parent instead)
 gradual-blur --relative --position bottom
-
-# Side blur effects
-gradual-blur --position left --width 6rem
-gradual-blur --position right --width 6rem
 ```
 
 ## Framework Usage

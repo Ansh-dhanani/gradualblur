@@ -1,9 +1,10 @@
 import React from 'react';
 
 type Position = 'top' | 'bottom' | 'left' | 'right';
-type AnimationType = 'scroll' | 'hover' | 'fade' | false;
-type CurveType = 'linear' | 'bezier' | 'ease-in-out';
-type PresetType = 'top' | 'bottom';
+type AnimationType = 'scroll' | boolean;
+type CurveType = 'linear' | 'bezier' | 'ease-in' | 'ease-out' | 'ease-in-out';
+type PresetType = 'top' | 'bottom' | 'left' | 'right' | 'subtle' | 'intense' | 'smooth' | 'sharp' | 'header' | 'footer' | 'sidebar' | 'page-header' | 'page-footer';
+type TargetType = 'parent' | 'page';
 
 interface GradualBlurProps {
   // Basic options
@@ -34,7 +35,7 @@ interface GradualBlurProps {
   preset?: PresetType;
   gpuOptimized?: boolean;
   hoverIntensity?: number;
-  absolute?: boolean;
+  target?: TargetType;
   
   // Event handlers
   onAnimationComplete?: () => void;
