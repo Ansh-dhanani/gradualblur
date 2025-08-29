@@ -1,6 +1,6 @@
 {
   "name": "gradualblur",
-  "version": "2.3.5",
+  "version": "2.3.6",
   "description": "Advanced gradual blur effects with animations, presets, responsive design, and multi-framework support",
   "main": "index.js",
   "types": "index.d.ts",

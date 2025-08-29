@@ -7,14 +7,100 @@ Create beautiful gradual blur effects that fade smoothly from clear to blurred. 
 ## 🚀 Installation
 
 ```bash
-# For React projects
 npm install gradualblur
+```
 
-# For Vue projects
-npm install gradualblur
+## 📦 Framework Support
 
-# For Svelte projects  
-npm install gradualblur
+The GradualBlur component works with:
+
+- ✅ **React** (JS/TS + CSS/Tailwind) - Full support
+- ⚠️ **Vue** - Basic support (React component wrapper)
+- ⚠️ **Svelte** - Basic support (React component wrapper)
+
+## 🎯 Quick Start Examples
+
+### Basic Usage (JS + CSS)
+
+```jsx
+import GradualBlur from 'gradualblur';
+
+function App() {
+  return (
+    <section style={{ position: 'relative', height: 500, overflow: 'hidden' }}>
+      <div style={{ height: '100%', overflowY: 'auto', padding: '6rem 2rem' }}>
+        {/* Content Here - such as an image or text */}
+        <h1>Your Content</h1>
+        <p>This will have a beautiful gradual blur effect</p>
+      </div>
+
+      <GradualBlur
+        target="parent"
+        position="bottom"
+        height="6rem"
+        strength={2}
+        divCount={5}
+        curve="bezier"
+        exponential={true}
+        opacity={1}
+      />
+    </section>
+  );
+}
+```
+
+### TypeScript + CSS
+
+```tsx
+import GradualBlur from 'gradualblur';
+import type { GradualBlurProps } from 'gradualblur';
+
+const App: React.FC = () => {
+  const blurProps: Partial<GradualBlurProps> = {
+    target: "parent",
+    position: "bottom",
+    height: "6rem",
+    strength: 2,
+    divCount: 5,
+    curve: "bezier",
+    exponential: true,
+    opacity: 1
+  };
+
+  return (
+    <section style={{ position: 'relative', minHeight: '100vh' }}>
+      <div style={{ padding: '2rem' }}>
+        {/* Your content */}
+      </div>
+      <GradualBlur {...blurProps} />
+    </section>
+  );
+};
+```
+
+### React + Tailwind
+
+```jsx
+import GradualBlur from 'gradualblur';
+
+function App() {
+  return (
+    <div className="relative min-h-screen">
+      <div className="p-8">
+        {/* Your Tailwind-styled content */}
+        <h1 className="text-4xl font-bold text-white">Modern Design</h1>
+      </div>
+      
+      <GradualBlur
+        position="bottom"
+        height="6rem"
+        strength={2}
+        target="parent"
+        className="custom-blur-overlay"
+      />
+    </div>
+  );
+}
 ```
 
 ## 📦 Framework Integration
@@ -32,10 +118,11 @@ function App() {
       
       {/* Custom blur with target positioning */}
       <GradualBlur 
-        position="bottom"
-        height="10vh"
-        target="parent" // or {"page" (with respect to whole page)}
-        strength={3}
+        position='bottom'
+        height='7vh'
+        strength={2}
+        target='page' // "parent" {with respect to first parent} 
+        divCount={6}
       />
       
       {/* Using presets */}
