@@ -1,3 +1,5 @@
+
+
 # GradualBlur
 
 <img src="gradualblur.gif" alt="GradualBlur Demo" width="800">
@@ -140,7 +142,7 @@ function App() {
 </template>
 
 <script>
-import { GradualBlurVue } from 'gradualblur'
+import GradualBlurVue from 'gradualblur/GradualBlur.vue'
 export default {
   components: { GradualBlurVue }
 }
